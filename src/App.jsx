@@ -6,6 +6,17 @@ import './App.css'
 export default function App() {
   const [tempo, setTempo] = useState(60)
 
+  function handleChange(e) {
+    console.log(e.target.value)
+    console.log("ticker function")
+    setTempo(e.target.value)
+  }
+
+  function handleClick(e) {
+    console.log(e)
+    console.log("click function")
+  }
+
   return (
     <>
       <div>
@@ -16,13 +27,13 @@ export default function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <div class="slidecontainer">
-        <input type="range" min="10" max="300" value="60" class="slider" id="myRange"></input>
+      <div className="slidecontainer">
+        <input type="range" min="10" max="300" value={tempo} className="slider" id="ticker" onChange={(e) => handleChange(e)} onClick={(e) => handleClick(e)}></input>
       </div>
-      <h1>Vite + React test</h1>
+      <h1>Pulse</h1>
       <div className="card">
-        <button id="ticker" onClick={() => setTempo((tempo) => tempo + 1)}>
-          count is {tempo}
+        <button id="ticker" onClick={() => handleClick}>
+          tempo is {tempo}
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
