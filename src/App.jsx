@@ -15,11 +15,19 @@ export default function App() {
       sound.play()
       //handles all future ticks
       setIntervalId(setInterval(() => sound.play(), 60000/tempo))
-      setIsTicking(isTicking => !isTicking)
-    } else {
+    }
+    else {
       clearInterval(intervalId)
       setIntervalId(null)
-      setIsTicking(isTicking => !isTicking)
+    }
+    setIsTicking(isTicking => !isTicking)
+  }
+
+  function handleChange (e) {
+    setTempo(e.target.value)
+    if (isTicking) {
+      clearInterval(intervalId)
+      setIntervalId(setInterval(() => sound.play(), 60000/e.target.value))
     }
   }
 
@@ -29,7 +37,7 @@ export default function App() {
         <h1>Pulse</h1>
       </div>
       <div className="slidecontainer">
-        <input type="range" min="10" max="300" value={tempo} className="slider" id="ticker" onChange={(e) => setTempo(e.target.value)}></input>
+        <input type="range" min="10" max="300" value={tempo} className="slider" id="ticker" onChange={handleChange}></input>
       </div>
       <div className="card">
         <button id="counter" onClick={handleClick}>
