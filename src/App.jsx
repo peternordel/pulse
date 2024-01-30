@@ -1,47 +1,41 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import tick from './assets/tick.wav'
 import './App.css'
 
 export default function App() {
   const [tempo, setTempo] = useState(60)
+  const [isTicking, setIsTicking] = useState(false)
+  const [intervalId, setIntervalId] = useState(null)
+  const sound = new Audio(tick)
 
-  function handleChange(e) {
-    console.log(e.target.value)
-    console.log("ticker function")
-    setTempo(e.target.value)
-  }
-
-  function handleClick(e) {
-    console.log(e)
-    console.log("click function")
+  //handleClick will toggle ticking mode to inverse (i.e. if it currently is ticking, will change to not ticking, and vice versa)
+  function handleClick() {
+    if (!isTicking) {
+      //handles first tick so it plays immediately
+      sound.play()
+      //handles all future ticks
+      setIntervalId(setInterval(() => sound.play(), 60000/tempo))
+      setIsTicking(isTicking => !isTicking)
+    } else {
+      clearInterval(intervalId)
+      setIntervalId(null)
+      setIsTicking(isTicking => !isTicking)
+    }
   }
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Pulse</h1>
       </div>
       <div className="slidecontainer">
-        <input type="range" min="10" max="300" value={tempo} className="slider" id="ticker" onChange={(e) => handleChange(e)} onClick={(e) => handleClick(e)}></input>
+        <input type="range" min="10" max="300" value={tempo} className="slider" id="ticker" onChange={(e) => setTempo(e.target.value)}></input>
       </div>
-      <h1>Pulse</h1>
       <div className="card">
-        <button id="ticker" onClick={() => handleClick}>
-          tempo is {tempo}
+        <button id="counter" onClick={handleClick}>
+          {tempo}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
