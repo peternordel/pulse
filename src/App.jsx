@@ -21,7 +21,6 @@ export default function App() {
       clearInterval(intervalId)
       setIntervalId(null)
     }
-
     setIsTicking(isTicking => !isTicking)
   }
 
