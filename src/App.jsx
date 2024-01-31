@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import tick from './assets/tick.wav'
 import './App.css'
+import Knob from './knob.jsx'
 
 export default function App() {
   const [tempo, setTempo] = useState(60)
@@ -20,11 +21,13 @@ export default function App() {
       clearInterval(intervalId)
       setIntervalId(null)
     }
+
     setIsTicking(isTicking => !isTicking)
   }
 
   function handleChange (e) {
     setTempo(e.target.value)
+    //changes the tempo immediately if already ticking
     if (isTicking) {
       clearInterval(intervalId)
       setIntervalId(setInterval(() => sound.play(), 60000/e.target.value))
@@ -32,12 +35,21 @@ export default function App() {
   }
 
   return (
-    <div id="root">
-      <h1>Pulse</h1>
+    <>
       <div className="slidecontainer">
+        <Knob
+          numTicks={125}
+          degrees={290}
+          min={1}
+          max={100}
+          value={0}
+          size={500}
+        />
+      </div>
+      {/* <div>
         <input type="range" min="10" max="300" orient="circular" step="1" value={tempo} className="slider" id="ticker" onChange={handleChange}></input>
         <button id="counter" onClick={handleClick}>{tempo}</button>
-      </div>
-    </div>
+      </div> */}
+    </>
   )
 }
