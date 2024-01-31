@@ -32,18 +32,12 @@ export default function App() {
   }
 
   return (
-    <>
-      <div>
-        <h1>Pulse</h1>
-      </div>
+    <div id="root">
+      <h1>Pulse</h1>
       <div className="slidecontainer">
-        <input type="range" min="10" max="300" value={tempo} className="slider" id="ticker" onChange={handleChange}></input>
+        <input type="range" min="10" max="300" orient="circular" step="1" value={tempo} className="slider" id="ticker" onChange={handleChange}></input>
+        <button id="counter" onClick={handleClick}>{tempo}</button>
       </div>
-      <div className="card">
-        <button id="counter" onClick={handleClick}>
-          {tempo}
-        </button>
-      </div>
-    </>
+    </div>
   )
 }
