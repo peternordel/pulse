@@ -4,9 +4,8 @@ import { useState } from 'react'
 export default function Knob (props) {
     function convertRange (oldMin, oldMax, newMin, newMax, oldValue) {
         return (oldValue - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
-      };
+    };
     
-    const fullAngle = props.degrees;
     const startAngle = (360 - props.degrees) / 2;
     const endAngle = startAngle + props.degrees;
     let currentDeg = Math.floor(
@@ -25,8 +24,8 @@ export default function Knob (props) {
         e.preventDefault();
         const knob = e.target.getBoundingClientRect();
         const pts = {
-          x: knob.left + knob.width / 2,
-          y: knob.top + knob.height / 2
+            x: knob.left + knob.width / 2,
+            y: knob.top + knob.height / 2
         };
         const moveHandler = e => {
             currentDeg = getDeg(e.clientX, e.clientY, pts);
@@ -39,13 +38,13 @@ export default function Knob (props) {
                     props.max,
                     currentDeg
                 )
-          );
-          setDeg(currentDeg)
-          console.log(deg, Math.round(currentDeg), newValue)
+            );
+            setDeg(currentDeg)
+            console.log(Math.round(deg), Math.round(currentDeg), newValue)
         };
         document.addEventListener("mousemove", moveHandler);
         document.addEventListener("mouseup", e => {
-          document.removeEventListener("mousemove", moveHandler);
+            document.removeEventListener("mousemove", moveHandler);
         });
     }
       
@@ -62,31 +61,27 @@ export default function Knob (props) {
         return finalDeg;
     };
       
-        convertRange = (oldMin, oldMax, newMin, newMax, oldValue) => {
-          return (oldValue - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
-        };
+    function convertRange (oldMin, oldMax, newMin, newMax, oldValue) {
+        return (oldValue - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
+    };
       
-        function dcpy (o) {
-          return JSON.parse(JSON.stringify(o));
-        };
+    function dcpy (o) {
+        return JSON.parse(JSON.stringify(o));
+    };
       
         let kStyle = {
-            width: props.size,
-            height: props.size
+            width: "50vh",
+            height: "50vh"
         };
         let iStyle = dcpy(kStyle);
         let oStyle = dcpy(kStyle);
         if (props.color) {
             oStyle.backgroundImage =
                 "radial-gradient(100% 70%,hsl(210, " +
-                currentDeg +
-                "%, " +
-                currentDeg / 5 +
-                "%),hsl(" +
-                Math.random() * 100 +
-                ",20%," +
-                currentDeg / 36 +
-                "%))";
+                currentDeg + "%, " +
+                currentDeg / 5 + "%),hsl(" +
+                Math.random() * 100 + ",20%," +
+                currentDeg / 36 + "%))";
         }
         iStyle.transform = "rotate(" + deg + "deg)";
         

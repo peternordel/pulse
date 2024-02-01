@@ -7,6 +7,7 @@ export default function App() {
   const [tempo, setTempo] = useState(60)
   const [isTicking, setIsTicking] = useState(false)
   const [intervalId, setIntervalId] = useState(null)
+  const [range, setRange] = useState([10, 300])
   const sound = new Audio(tick)
 
   //handleClick will toggle ticking mode to inverse (i.e. if it currently is ticking, will change to not ticking, and vice versa)
@@ -37,11 +38,10 @@ export default function App() {
     <>
       <div className="slidecontainer">
         <Knob
-          degrees={350}
-          min={10}
-          max={300}
-          value={0}
-          size={750}
+          degrees={range[1] - range[0]}
+          min={range[0] + 1}
+          max={range[1]}
+          value={60}
         />
         <button id="counter" onClick={handleClick}>{tempo}</button>
       </div>
