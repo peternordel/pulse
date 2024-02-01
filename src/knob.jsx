@@ -9,7 +9,6 @@ export default function Knob (props) {
     const fullAngle = props.degrees;
     const startAngle = (360 - props.degrees) / 2;
     const endAngle = startAngle + props.degrees;
-    const margin = props.size * 0.15;
     let currentDeg = Math.floor(
     convertRange(
         props.min,
@@ -21,7 +20,6 @@ export default function Knob (props) {
     );
 
     const [deg, setDeg] = useState(currentDeg)
-    console.log("rerender", deg)
 
     function startDrag (e) {
         e.preventDefault();
@@ -43,7 +41,7 @@ export default function Knob (props) {
                 )
           );
           setDeg(currentDeg)
-          props.onChange(newValue);
+          console.log(deg, Math.round(currentDeg), newValue)
         };
         document.addEventListener("mousemove", moveHandler);
         document.addEventListener("mouseup", e => {
@@ -68,26 +66,6 @@ export default function Knob (props) {
           return (oldValue - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
         };
       
-        // renderTicks = () => {
-        //   let ticks = [];
-        //   const incr = this.fullAngle / this.props.numTicks;
-        //   const size = this.margin + this.props.size / 2;
-        //   for (let deg = this.startAngle; deg <= this.endAngle; deg += incr) {
-        //     const tick = {
-        //       deg: deg,
-        //       tickStyle: {
-        //         height: size + 10,
-        //         left: size - 1,
-        //         top: size + 2,
-        //         transform: "rotate(" + deg + "deg)",
-        //         transformOrigin: "top"
-        //       }
-        //     };
-        //     ticks.push(tick);
-        //   }
-        //   return ticks;
-        // };
-      
         function dcpy (o) {
           return JSON.parse(JSON.stringify(o));
         };
@@ -98,7 +76,6 @@ export default function Knob (props) {
         };
         let iStyle = dcpy(kStyle);
         let oStyle = dcpy(kStyle);
-        oStyle.margin = margin;
         if (props.color) {
             oStyle.backgroundImage =
                 "radial-gradient(100% 70%,hsl(210, " +
@@ -115,23 +92,10 @@ export default function Knob (props) {
         
     return (
         <div className="knob" style={kStyle}>
-            {/* <div className="ticks">
-            {this.props.numTicks
-                ? this.renderTicks().map((tick, i) => (
-                    <div
-                    key={i}
-                    className={
-                        "tick" + (tick.deg <= this.currentDeg ? " active" : "")
-                    }
-                    style={tick.tickStyle}
-                    />
-                ))
-                : null}
-            </div> */}
             <div className="knob outer" style={oStyle} onMouseDown={startDrag}>
-            <div className="knob inner" style={iStyle}>
-                <div className="grip" />
-            </div>
+                <div className="knob inner" style={iStyle}>
+                    <div className="grip" />
+                </div>
             </div>
         </div>
     )

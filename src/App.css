@@ -1,21 +1,15 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
   text-align: center;
 }
+
+
 
 .slidecontainer {
   display: flex;
   align-items: center;
   justify-content: center;
   border: 3px solid green;
-}
-
-#ticker {
-  position: absolute;
-}
-
-#counter {
-  position: absolute;
 }

@@ -37,13 +37,13 @@ export default function App() {
     <>
       <div className="slidecontainer">
         <Knob
-          numTicks={125}
-          degrees={290}
-          min={1}
-          max={100}
+          degrees={350}
+          min={10}
+          max={300}
           value={0}
-          size={500}
+          size={750}
         />
+        <button id="counter" onClick={handleClick}>{tempo}</button>
       </div>
       {/* <div>
         <input type="range" min="10" max="300" orient="circular" step="1" value={tempo} className="slider" id="ticker" onChange={handleChange}></input>
